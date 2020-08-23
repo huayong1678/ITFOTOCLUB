@@ -57,7 +57,7 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="col-12 col-md-5">
+            <div class="col-5">
               <label class="text-white" for="nName">ชื่อเล่น *</label>
               <input @blur="isTouched.nickname = true" v-model="form.nickname" type="text"
                 :class="['form-control', {'mb-3': isNickNameValid || !isTouched.nickname}]" placeholder="ปาลื้ม"
@@ -66,14 +66,9 @@
               <small v-if="!isNickNameValid && isTouched.nickname"
                 class="text-warning mb-3 d-inline-block">กรุณากรอกชื่อเล่นด้วยครับ</small>
             </div>
-            <div class="col-12 col-md-7">
-              <label class="text-white" for="phoneNum">เบอร์มือถือ *</label>
-              <input @blur="isTouched.phone = true" v-model="form.phone" type="text"
-                :class="['form-control', {'mb-3': isPhoneValid || !isTouched.phone}]" placeholder="0619144XXX"
-                id="phoneNum">
-
-              <small v-if="!isPhoneValid && isTouched.phone"
-                class="text-warning mb-3 d-inline-block">กรุณากรอกเบอร์โทรศัพท์มือถือด้วยครับ</small>
+            <div class="col-7">
+              <label class="text-white" for="LineID">Line ID</label>
+              <input v-model="form.line" type="text" class="form-control mb-3" placeholder="itfotoclub" id="LineID">
             </div>
           </div>
           <div class="form-row">
@@ -91,11 +86,7 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="col-12 col-md-6">
-              <label class="text-white" for="LineID">Line ID</label>
-              <input v-model="form.line" type="text" class="form-control mb-3" placeholder="itfotoclub" id="LineID">
-            </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12">
               <label class="text-white" for="email">Email *</label>
               <input @blur="isTouched.email = true" v-model="form.email" type="text"
                 :class="['form-control', {'mb-3': isEmailValid || !isTouched.Email}]"
@@ -108,23 +99,56 @@
           </div>
           <div class="row">
             <div class="col-12">
+              <label class="text-white" for="devices">ความสนใจ</label>
+            </div>
+            <div class="col-12">
+              <div class="row justify-content-center">
+                <div class="col-6 mb-3">
+                  <button @click="handleSkillClick('photo')"
+                    :class="['w-100 btn', {'btn-outline-light': !form.skills.photo}, {'active btn-outline-primary text-warning': form.skills.photo}]">ถ่ายภาพ</button>
+                </div>
+                <div class="col-6 mb-3">
+                  <button @click="handleSkillClick('vdo')"
+                    :class="['w-100 btn', {'btn-outline-light': !form.skills.vdo}, {'active btn-outline-primary text-warning': form.skills.vdo}]">ถ่ายวิดีโอ</button>
+                </div>
+                <div class="col-6 mb-3">
+                  <button @click="handleSkillClick('artwork')"
+                    :class="['w-100 btn', {'btn-outline-light': !form.skills.artwork}, {'active btn-outline-primary text-warning': form.skills.artwork}]">Artwork</button>
+                </div>
+                <div class="col-6 mb-3">
+                  <button @click="handleSkillClick('lightroom')"
+                    :class="['w-100 btn', {'btn-outline-light': !form.skills.lightroom}, {'active btn-outline-primary text-warning': form.skills.lightroom}]">Lightroom</button>
+                </div>
+                <div class="col-6 mb-3">
+                  <button @click="handleSkillClick('editing')"
+                    :class="['w-100 btn', {'btn-outline-light': !form.skills.editing}, {'active btn-outline-primary text-warning': form.skills.editing}]">ตัดต่อวิดีโอ</button>
+                </div>
+                <div class="col-6 mb-3">
+                  <button @click="handleSkillClick('ccpr')"
+                    :class="['w-100 btn', {'btn-outline-light': !form.skills.ccpr}, {'active btn-outline-primary text-warning': form.skills.ccpr}]">คิด Content / PR</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
               <label class="text-white" for="devices">อุปกรณ์ที่ใช้ถ่ายภาพ (เลือกได้มากกว่า 1 อย่าง)</label>
             </div>
             <div class="col-12">
               <div class="row justify-content-center">
-                <div class="col-12 col-md-6 mb-3">
+                <div class="col-6 mb-3">
                   <button @click="handleDeviceClick('dslr')"
                     :class="['w-100 btn', {'btn-outline-light': !form.devices.dslr}, {'active btn-outline-primary text-warning': form.devices.dslr}]">DSRL</button>
                 </div>
-                <div class="col-12 col-md-6 mb-3">
+                <div class="col-6 mb-3">
                   <button @click="handleDeviceClick('phone')"
                     :class="['w-100 btn', {'btn-outline-light': !form.devices.phone}, {'active btn-outline-primary text-warning': form.devices.phone}]">Mirrorless</button>
                 </div>
-                <div class="col-12 col-md-6 mb-3">
+                <div class="col-6 mb-3">
                   <button @click="handleDeviceClick('film')"
                     :class="['w-100 btn', {'btn-outline-light': !form.devices.film}, {'active btn-outline-primary text-warning': form.devices.film}]">Film</button>
                 </div>
-                <div class="col-12 col-md-6 mb-3">
+                <div class="col-6 mb-3">
                   <button @click="handleDeviceClick('other')"
                     :class="['w-100 btn', {'btn-outline-light': !form.devices.other}, {'active btn-outline-primary text-warning': form.devices.other}]">Other</button>
                 </div>
@@ -133,6 +157,11 @@
           </div>
           <hr>
           <div class="form-row">
+            <div class="col-12">
+              <label class="text-white" for="expectation">คาดหวังอะไรกับการเข้าร่วมชุมนุม</label>
+              <textarea v-model="form.expectation" class="form-control mb-3" placeholder="กล้องดีๆสักสองสามตัว" id="expectation"
+                row="3"></textarea>
+            </div>
             <div class="col-12">
               <label class="text-white" for="reason">ขอเหตุผลน่ารักๆว่าทำไมถึงมาเข้าร่วมชุมนุมของเรา</label>
               <textarea v-model="form.reason" class="form-control mb-3" placeholder="เพราะพี่ปลื้มหล่อมากๆ" id="reason"
@@ -180,38 +209,52 @@
 
   var app = new Vue({
     el: '#form-app',
-    data: {
-      isTouched: {
-        firstname: false,
-        lastname: false,
-        nickname: false,
-        phone: false,
-        email: false,
-        facebook: false,
-        line: false,
-        reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
-      },
-      error: false,
-      form: {
-        firstname: '',
-        lastname: '',
-        nickname: '',
-        phone: '',
-        email: '',
-        facebook: '',
-        line: '',
-        devices: {
-          dslr: false,
+    data() {
+      return {
+        isTouched: {
+          firstname: false,
+          lastname: false,
+          nickname: false,
           phone: false,
-          film: false,
-          other: false
+          email: false,
+          facebook: false,
+          line: false,
+          reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
         },
-        reason: '',
+        error: false,
+        form: {
+          firstname: '',
+          lastname: '',
+          nickname: '',
+          phone: '',
+          email: '',
+          facebook: '',
+          line: '',
+          skills: {
+            photo: false,
+            vdo: false,
+            artwork: false,
+            lightroom: false,
+            editing: false,
+            ccpr: false
+          },
+          devices: {
+            dslr: false,
+            phone: false,
+            film: false,
+            other: false
+          },
+          expectation: '',
+          reason: '',
+        }
       }
     },
     methods: {
       handleDeviceClick(device) {
         this.form.devices[device] = !this.form.devices[device]
+      },
+      handleSkillClick(skill) {
+        this.form.skills[skill] = !this.form.skills[skill]
       },
       saveForm() {
         if (
@@ -265,10 +308,10 @@
         return false;
       },
       isEmailValid() {
-        // if (this.form.email.test(this.reg) === 1) {
-        //   return true;
-        // }
-        return true;
+        if (this.isTouched.reg.test(this.form.email)) {
+          return true;
+        }
+        return false;
       }
     }
   });
